@@ -1,4 +1,7 @@
 # Le News
+
+<!-- [![Build Status](https://travis-ci.org/{sauldesigns}/{simplenews}.png?branch=master)](https://travis-ci.org/{sauldesigns}/{simplenews}) -->
+
 Le News is a cross-platform cloud-enabled mobile application powered by Flutter Framework.
 
 The application was built with simplicity in mind by using tags to filter news articles.
