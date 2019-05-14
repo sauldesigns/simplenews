@@ -27,7 +27,7 @@ You can also:
 ### API
   - Powered by News API
 
->Le News uses News API in order to get the top news and pass >in the tags so that the api can filter news articles based on >tag title. The News API then sends JSON data over to app and >then pushes it to function that creates pages containing >Title, Description, and Image.
+>Le News uses News API in order to get the top news and pass in the tags so that the api can filter news articles based on tag title. The News API then sends JSON data over to app and then pushes it to function that creates pages containing Title, Description, and Image.
 
 ### Open Source Projects
 Le News uses a number of open source projects to work properly:
