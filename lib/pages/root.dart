@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../pages/auth.dart';
 import '../services/auth.dart';
-import '../main.dart';
+import '../UI/mainSlider.dart';
 import 'package:flutter/foundation.dart' as foundation;
 
 bool get isIOS => foundation.defaultTargetPlatform == TargetPlatform.iOS;
