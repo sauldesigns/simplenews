@@ -13,7 +13,6 @@ class FirestoreSlideshow extends StatefulWidget {
   final String userId;
   final BaseAuth auth;
   final VoidCallback onSignedOut;
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   createState() => FirestoreSlideshowState();
 }
 
@@ -113,7 +112,6 @@ class FirestoreSlideshowState extends State<FirestoreSlideshow> {
     }
   }
 
-  
   _launchUrl(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
