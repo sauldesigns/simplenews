@@ -8,7 +8,7 @@ The application was built with simplicity in mind by using tags to filter news a
 
 | Demo |
 | ------ |
-| <img src="https://i.imgur.com/261LTuX.gif"> |
+| ![App Demo](demo/le_news.gif) |
 
 | Tags | Articles |
 | ------ | ------ |
