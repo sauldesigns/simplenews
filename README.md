@@ -12,7 +12,7 @@ The application was built with simplicity in mind by using tags to filter news a
 
 | Tags | Articles |
 | ------ | ------ |
-|<img src="http://sauldesigns.me/img/IMG_2370.PNG" width="400" height="760">| <img src="http://sauldesigns.me/img/IMG_2372.PNG" width="400" height="760">|
+|<img src="https://saulplateros.me/img/IMG_2370.PNG" width="400" height="760">| <img src="https://saulplateros.me/img/IMG_2372.PNG" width="400" height="760">|
 
 
 ### How To Use Application
