@@ -72,6 +72,7 @@ class FirestoreSlideshowState extends State<FirestoreSlideshow> {
 
           return _buildStoryPage(newSlides[currentIdx - 1], active);
         }
+        return Container();
       },
     );
   }
