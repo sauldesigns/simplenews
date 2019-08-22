@@ -26,6 +26,13 @@ class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
+    /* 
+      If mobile then user viewport of 0.8
+      if tablet then use viewpoert of 0.5
+    */
+
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+    var useMobileLayout = shortestSide < 600;
     var _user = Provider.of<FirebaseUser>(context);
     var user = Provider.of<UserRepository>(context);
     switch (user.status) {
@@ -43,7 +50,7 @@ class _RootPageState extends State<RootPage> {
           initialData: User.initialData(),
           child: StreamProvider<List<Tag>>.value(
             value: _db.streamTags(_user.uid),
-            child: HomePage(),
+            child: HomePage(useMobile: useMobileLayout),
           ),
         );
     }

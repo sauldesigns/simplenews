@@ -11,8 +11,8 @@ import 'package:simple_news/services/database_service.dart';
 import 'package:simple_news/services/news_api.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
-
+  HomePage({Key key, this.useMobile = true}) : super(key: key);
+  final bool useMobile;
   _HomePageState createState() => _HomePageState();
 }
 
@@ -20,12 +20,14 @@ class _HomePageState extends State<HomePage> {
   int currentPage = 0;
   final Firestore db = Firestore.instance;
   final _db = DatabaseService();
-  final PageController ctrl = PageController(viewportFraction: 0.8);
+  PageController ctrl;
   final TextEditingController txtCtrl = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+
+    ctrl = PageController(viewportFraction: widget.useMobile == true ? 0.8 : 0.5);
     // Set state when page changes
     ctrl.addListener(() {
       int next = ctrl.page.round();
@@ -41,7 +43,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     /* 
       Prevents user from being able to go in landscape mode
       when on this page.
