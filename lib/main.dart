@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           builder: (_) => UserRepository.instance(),
         ),
         ChangeNotifierProvider<NewsApi>(
-          builder: (_) => NewsApi(),
+          builder: (_) => new NewsApi(),
         )
       ],
       child: MaterialApp(

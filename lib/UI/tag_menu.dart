@@ -65,7 +65,7 @@ class _TagMenuState extends State<TagMenu> {
         style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500));
   }
 
-  Widget _menuButtons(UserRepository userRepo) {
+  Widget _menuButtons(UserRepository userRepo, NewsApi newsApi) {
     return Row(
       children: <Widget>[
         FlatButton(
@@ -80,7 +80,10 @@ class _TagMenuState extends State<TagMenu> {
           padding: EdgeInsets.all(0.0),
           child: Text('Sign Out'),
           onPressed: () {
+            newsApi.fetchData();
+            newsApi.setTagIndex(0);
             userRepo.signOut();
+
           },
         ),
       ],
@@ -153,7 +156,7 @@ class _TagMenuState extends State<TagMenu> {
           SizedBox(
             height: 10.0,
           ),
-          _menuButtons(userRepo),
+          _menuButtons(userRepo, newsApi),
           SizedBox(
             height: 10.0,
           ),

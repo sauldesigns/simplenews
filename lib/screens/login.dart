@@ -34,10 +34,7 @@ class _LoginPageState extends State<LoginPage> {
       _formkey.currentState.save();
 
       bool result = await userRepo.signIn(_email, _password);
-      if (result == true) {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
-      } else {
+      if (result == false) {
         Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           margin: EdgeInsets.all(8.0),
@@ -60,13 +57,12 @@ class _LoginPageState extends State<LoginPage> {
         _autoValidate = true;
       });
     }
-   
   }
 
   @override
   Widget build(BuildContext context) {
     var userRepo = Provider.of<UserRepository>(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.light,
