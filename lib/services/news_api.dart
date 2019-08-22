@@ -14,8 +14,15 @@ class NewsApi with ChangeNotifier {
 
   String _jsonResponse = '';
   bool _isFetching = false;
+  int _tagIndex = 0;
 
   bool get isFetching => _isFetching;
+  int get tagIndex => _tagIndex;
+
+  void setTagIndex(int index) {
+    _tagIndex = index;
+    notifyListeners();
+  }
 
   Future<void> fetchData(
       {String query = 'top-headlines?country=us&pageSize=100'}) async {

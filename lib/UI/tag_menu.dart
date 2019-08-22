@@ -91,7 +91,7 @@ class _TagMenuState extends State<TagMenu> {
     return Container(
       width: 200,
       child: ListView.builder(
-        padding: EdgeInsets.only(top: 20, left:3),
+        padding: EdgeInsets.only(top: 20, left: 5),
         shrinkWrap: true,
         physics: ScrollPhysics(),
         itemCount: widget.listTags == null ? 1 : widget.listTags.length + 1,
@@ -107,8 +107,9 @@ class _TagMenuState extends State<TagMenu> {
                 title: 'top',
                 onTap: () {
                   newsApi.fetchData();
+                  newsApi.setTagIndex(0);
                   setState(() {
-                    currentTagIndex = index;
+                    currentTagIndex = newsApi.tagIndex;
                   });
                 });
           } else {
@@ -124,8 +125,9 @@ class _TagMenuState extends State<TagMenu> {
                 onTap: () {
                   newsApi.fetchData(
                       query: 'everything?q=' + tag.tag + '&pageSize=100');
+                  newsApi.setTagIndex(index);
                   setState(() {
-                    currentTagIndex = index;
+                    currentTagIndex = newsApi.tagIndex;
                   });
                 });
           }
@@ -139,6 +141,7 @@ class _TagMenuState extends State<TagMenu> {
     UserRepository userRepo = Provider.of<UserRepository>(context);
     FirebaseUser userData = Provider.of<FirebaseUser>(context);
     NewsApi newsApi = Provider.of<NewsApi>(context);
+    currentTagIndex = newsApi.tagIndex;
     return SingleChildScrollView(
       padding: EdgeInsets.only(top: 100, bottom: 20),
       physics: AlwaysScrollableScrollPhysics(),
