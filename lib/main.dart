@@ -5,6 +5,7 @@ import 'package:simple_news/enums/connectvity_status.dart';
 import 'package:simple_news/screens/login.dart';
 import 'package:simple_news/screens/signup.dart';
 import 'package:simple_news/services/connectivity.dart';
+import 'package:simple_news/services/news_api.dart';
 import 'package:simple_news/services/user_repo.dart';
 
 import './pages/root.dart';
@@ -22,8 +23,11 @@ class MyApp extends StatelessWidget {
           builder: (context) =>
               ConnectivityService().connectionStatusController,
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<UserRepository>(
           builder: (_) => UserRepository.instance(),
+        ),
+        ChangeNotifierProvider<NewsApi>(
+          builder: (_) => NewsApi(),
         )
       ],
       child: MaterialApp(

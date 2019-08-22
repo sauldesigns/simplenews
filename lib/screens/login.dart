@@ -60,13 +60,13 @@ class _LoginPageState extends State<LoginPage> {
         _autoValidate = true;
       });
     }
-    _autoValidate = false;
+   
   }
 
   @override
   Widget build(BuildContext context) {
     var userRepo = Provider.of<UserRepository>(context);
-
+    
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.light,
@@ -87,6 +87,7 @@ class _LoginPageState extends State<LoginPage> {
           physics: AlwaysScrollableScrollPhysics(),
           child: Form(
             key: this._formkey,
+            autovalidate: _autoValidate,
             child: Center(
               child: Container(
                 padding: EdgeInsets.only(
