@@ -6,6 +6,8 @@ import 'package:simple_news/UI/article_card.dart';
 import 'package:simple_news/UI/tag_menu.dart';
 import 'package:simple_news/models/news.dart';
 import 'package:simple_news/models/tags.dart';
+import 'package:simple_news/models/user.dart';
+import 'package:simple_news/services/database_service.dart';
 import 'package:simple_news/services/news_api.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentPage = 0;
   final Firestore db = Firestore.instance;
-
+  final _db = DatabaseService();
   final PageController ctrl = PageController(viewportFraction: 0.8);
   final TextEditingController txtCtrl = TextEditingController();
 
@@ -37,25 +39,41 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
+
+    /* 
+      Prevents user from being able to go in landscape mode
+      when on this page.
+    */
+    
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
+    /* 
+      This gets all provider data
+      This also inits news articles.
+    */
     var newsApi = Provider.of<NewsApi>(context);
     var tagsList = Provider.of<List<Tag>>(context);
+    User user = Provider.of<User>(context);
     List<News> _newsList = newsApi.getArticles();
+
+
     return Scaffold(
       body: PageView.builder(
         controller: ctrl,
         itemCount: _newsList == null ? 1 : _newsList.length + 1,
         itemBuilder: (context, int currentIdx) {
           if (currentIdx == 0) {
-            return TagMenu(
-              listTags: tagsList,
+            return StreamProvider<User>.value(
+              value: _db.streamUser(user.uid),
+              initialData: user,
+              child: TagMenu(
+                listTags: tagsList,
+              ),
             );
           } else if (_newsList.length >= currentIdx) {
             bool active = currentIdx == currentPage;

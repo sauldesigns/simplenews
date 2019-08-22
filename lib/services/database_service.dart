@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:simple_news/models/news.dart';
 import 'package:simple_news/models/tags.dart';
 import 'package:simple_news/models/user.dart';
 // import 'dart:convert';
@@ -29,6 +30,29 @@ class DatabaseService {
 
     return ref.snapshots().map(
         (list) => list.documents.map((doc) => Tag.fromFirestore(doc)).toList());
+  }
+
+  Stream<List<News>> streamBookmarks(String uid) {
+    var ref = _db
+        .collection('users')
+        .document(uid)
+        .collection('bookmarks')
+        .orderBy('createdAt', descending: true);
+
+    return ref.snapshots().map((list) =>
+        list.documents.map((doc) => News.fromFirestore(doc)).toList());
+  }
+
+  Future<void> addBookmark(String uid, News data) {
+    Map<String, dynamic> newData = data.toJson();
+    newData['uid'] = uid;
+    newData['createdAt'] = DateTime.now();
+
+    return _db
+        .collection('users')
+        .document(uid)
+        .collection('bookmarks')
+        .add(newData);
   }
 
   // this deletes the database document of user

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class News {
   final String author;
   final String title;
@@ -20,12 +22,29 @@ class News {
       return News.initialData();
     } else {
       return News(
-        author: json['author'] ?? '...',
-        title: json['title'] ?? '...',
-        description: json['description'] ?? '...',
+        author: json['author'] ?? 'Not available',
+        title: json['title'] ?? 'No title',
+        description: json['description'] ?? 'No description',
         url: json['url'] ?? null,
         articleImage: json['urlToImage'] ?? 'https://firebasestorage.googleapis.com/v0/b/ifunny-66ef2.appspot.com/o/bg_placeholder.jpeg?alt=media&token=1f6da019-f9ed-4635-a040-33b8a0f80d25',
-        publishedAt: json['publishedAt'] ?? '...',
+        publishedAt: json['publishedAt'] ?? 'Not available',
+      );
+    }
+  }
+
+  factory News.fromFirestore(DocumentSnapshot doc) {
+    Map json = doc.data;
+
+    if (json.isEmpty) {
+      return News.initialData();
+    } else {
+      return News(
+        author: json['author'] ?? 'Not available',
+        title: json['title'] ?? 'No title',
+        description: json['description'] ?? 'No description',
+        url: json['url'] ?? null,
+        articleImage: json['articleImage'] ?? 'https://firebasestorage.googleapis.com/v0/b/ifunny-66ef2.appspot.com/o/bg_placeholder.jpeg?alt=media&token=1f6da019-f9ed-4635-a040-33b8a0f80d25',
+        publishedAt: json['publishedAt'] ?? 'Not available',
       );
     }
   }

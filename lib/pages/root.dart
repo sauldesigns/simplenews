@@ -34,7 +34,9 @@ class _RootPageState extends State<RootPage> {
       case Status.Unauthenticated:
         return LoginPage();
       case Status.Authenticating:
-        return SplashScreen();
+        return SplashScreen(
+          isAuth: true,
+        );
       case Status.Authenticated:
         return StreamProvider<User>.value(
           value: _db.streamUser(_user.uid),

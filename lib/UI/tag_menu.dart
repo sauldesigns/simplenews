@@ -1,9 +1,14 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_news/UI/tag_button.dart';
+import 'package:simple_news/models/news.dart';
 import 'package:simple_news/models/tags.dart';
+import 'package:simple_news/models/user.dart';
+import 'package:simple_news/pages/bookmarks.dart';
+import 'package:simple_news/services/database_service.dart';
 import 'package:simple_news/services/news_api.dart';
 import 'package:simple_news/services/user_repo.dart';
 
@@ -19,6 +24,7 @@ class _TagMenuState extends State<TagMenu> {
   bool deleteItem = false;
   bool active = false;
   int currentTagIndex = 0;
+  final _db = DatabaseService();
 
   void _handleSubmit(String value, FirebaseUser userData) {
     String temp = value.toLowerCase().replaceAll(' ', '');
@@ -61,17 +67,31 @@ class _TagMenuState extends State<TagMenu> {
   }
 
   Widget _title(String title) {
-    return Text(title,
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500));
+    return AutoSizeText(title,
+        maxLines: 2,
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300));
   }
 
-  Widget _menuButtons(UserRepository userRepo, NewsApi newsApi) {
+  Widget _menuButtons(UserRepository userRepo, NewsApi newsApi, User user) {
     return Row(
       children: <Widget>[
         FlatButton(
           padding: EdgeInsets.all(0.0),
           child: Text('Bookmarks'),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => StreamProvider<User>.value(
+                  value: _db.streamUser(user.uid),
+                  initialData: user,
+                  child: StreamProvider<List<News>>.value(
+                    value: _db.streamBookmarks(user.uid),
+                    child: BookmarksPage(),
+                  ),
+                ),
+              ),
+            );
+          },
         ),
         SizedBox(
           width: 10,
@@ -83,7 +103,6 @@ class _TagMenuState extends State<TagMenu> {
             newsApi.fetchData();
             newsApi.setTagIndex(0);
             userRepo.signOut();
-
           },
         ),
       ],
@@ -108,6 +127,7 @@ class _TagMenuState extends State<TagMenu> {
             return TagButton(
                 active: active,
                 title: 'top',
+                activeTagColor: Colors.blue,
                 onTap: () {
                   newsApi.fetchData();
                   newsApi.setTagIndex(0);
@@ -115,6 +135,8 @@ class _TagMenuState extends State<TagMenu> {
                     currentTagIndex = newsApi.tagIndex;
                   });
                 });
+          } else if (widget.listTags == null) {
+            return CircularProgressIndicator();
           } else {
             Tag tag = widget.listTags[index - 1];
             if (index == currentTagIndex) {
@@ -144,6 +166,7 @@ class _TagMenuState extends State<TagMenu> {
     UserRepository userRepo = Provider.of<UserRepository>(context);
     FirebaseUser userData = Provider.of<FirebaseUser>(context);
     NewsApi newsApi = Provider.of<NewsApi>(context);
+    User user = Provider.of<User>(context);
     currentTagIndex = newsApi.tagIndex;
     return SingleChildScrollView(
       padding: EdgeInsets.only(top: 100, bottom: 20),
@@ -152,11 +175,11 @@ class _TagMenuState extends State<TagMenu> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _title('Le News'),
+          _title('${user.username}\'s\nNews'),
           SizedBox(
             height: 10.0,
           ),
-          _menuButtons(userRepo, newsApi),
+          _menuButtons(userRepo, newsApi, user),
           SizedBox(
             height: 10.0,
           ),
