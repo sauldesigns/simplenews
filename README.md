@@ -1,6 +1,6 @@
 # Le News
 
-<!-- [![Build Status](https://travis-ci.org/{sauldesigns}/{simplenews}.png?branch=master)](https://travis-ci.org/{sauldesigns}/{simplenews}) -->
+[![Codemagic build status](https://api.codemagic.io/apps/5cfa2a0be8929e000e3bd4e4/5cfa2a0be8929e000e3bd4e3/status_badge.svg)](https://codemagic.io/apps/5cfa2a0be8929e000e3bd4e4/5cfa2a0be8929e000e3bd4e3/latest_build)
 
 Le News is a cross-platform cloud-enabled mobile application powered by Flutter Framework.
 
