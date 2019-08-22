@@ -25,7 +25,7 @@ class DatabaseService {
         .collection('users')
         .document(uid)
         .collection('tags')
-        .orderBy('tag', descending: true);
+        .orderBy('tag', descending: false);
 
     return ref.snapshots().map(
         (list) => list.documents.map((doc) => Tag.fromFirestore(doc)).toList());
