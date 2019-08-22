@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
       Prevents user from being able to go in landscape mode
       when on this page.
     */
-    
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

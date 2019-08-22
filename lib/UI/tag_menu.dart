@@ -34,8 +34,12 @@ class _TagMenuState extends State<TagMenu> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
               title: Text('Add Tag'),
-              content: Text('Are you sure you want to add the tag #$temp?'),
+              content: Text(
+                  'This tag will be searched as\n\n\'$value\'\n\nAdd the tag #$temp ?'),
               actions: <Widget>[
                 FlatButton(
                   child: Text('Add'),
@@ -47,7 +51,6 @@ class _TagMenuState extends State<TagMenu> {
                         .add(
                             {'tag': value, 'title': temp, 'uid': userData.uid});
                     txtCtrl.clear();
-
                     Navigator.of(context).pop();
                   },
                 ),
@@ -147,6 +150,7 @@ class _TagMenuState extends State<TagMenu> {
             return TagButton(
                 active: active,
                 title: tag.title,
+                activeTagColor: Colors.blue,
                 onTap: () {
                   newsApi.fetchData(
                       query: 'everything?q=' + tag.tag + '&pageSize=100');

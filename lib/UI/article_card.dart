@@ -55,7 +55,7 @@ class _ArticleCardState extends State<ArticleCard> {
         },
         onLongPress: () {
           Flushbar(
-            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarPosition: FlushbarPosition.TOP,
             margin: EdgeInsets.all(8.0),
             borderRadius: 10,
             duration: Duration(seconds: 3),
