@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../services/auth.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,10 +8,9 @@ import 'dart:async';
 import 'dart:convert';
 
 class FirestoreSlideshow extends StatefulWidget {
-  FirestoreSlideshow({Key key, this.userId, this.auth, this.onSignedOut})
+  FirestoreSlideshow({Key key, this.userId, this.onSignedOut})
       : super(key: key);
   final String userId;
-  final BaseAuth auth;
   final VoidCallback onSignedOut;
   createState() => FirestoreSlideshowState();
 }
@@ -72,6 +71,7 @@ class FirestoreSlideshowState extends State<FirestoreSlideshow> {
 
           return _buildStoryPage(newSlides[currentIdx - 1], active);
         }
+        return Container();
       },
     );
   }
