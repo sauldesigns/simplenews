@@ -74,3 +74,6 @@
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 android/app/google-services.json
 ios/Runner/GoogleService-Info (1).plist
+ios/Podfile.lock
+ios/Podfile.lock
+ios/Flutter/flutter_export_environment.sh
