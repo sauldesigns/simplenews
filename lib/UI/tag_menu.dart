@@ -114,7 +114,7 @@ class _TagMenuState extends State<TagMenu> {
 
   Widget _buildTags(NewsApi newsApi) {
     return Container(
-      width: 200,
+      
       child: ListView.builder(
         padding: EdgeInsets.only(top: 20, left: 5),
         shrinkWrap: true,
@@ -153,7 +153,7 @@ class _TagMenuState extends State<TagMenu> {
                 activeTagColor: Colors.blue,
                 onTap: () {
                   newsApi.fetchData(
-                      query: 'everything?q=' + tag.tag + '&pageSize=100');
+                      query: 'everything?q=' + tag.tag + '&language=en&sortBy=relevancy&pageSize=100');
                   newsApi.setTagIndex(index);
                   setState(() {
                     currentTagIndex = newsApi.tagIndex;
@@ -185,7 +185,7 @@ class _TagMenuState extends State<TagMenu> {
           ),
           _menuButtons(userRepo, newsApi, user),
           SizedBox(
-            height: 10.0,
+            height: 5.0,
           ),
           Container(
               width: 200.0,

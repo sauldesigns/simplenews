@@ -32,9 +32,11 @@ class UserRepository with ChangeNotifier {
     try {
       _status = Status.Authenticating;
       notifyListeners();
-      FirebaseUser result = await _auth.signInWithEmailAndPassword(
+
+      AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      _userData = result.uid;
+      FirebaseUser fireUser = result.user;
+      _userData = fireUser.uid;
       return true;
     } catch (e) {
       print(e);
@@ -62,7 +64,8 @@ class UserRepository with ChangeNotifier {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      FirebaseUser user = await _auth.signInWithCredential(credential);
+      AuthResult result = await _auth.signInWithCredential(credential);
+      FirebaseUser user = result.user;
       DocumentSnapshot snap =
           await db.collection('users').document(user.uid).get();
       if (snap.data == null) {
@@ -93,8 +96,9 @@ class UserRepository with ChangeNotifier {
     try {
       _status = Status.Authenticating;
       notifyListeners();
-      FirebaseUser user = await _auth.createUserWithEmailAndPassword(
+      AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      FirebaseUser user = result.user;
       _userData = user.uid;
       notifyListeners();
       return true;

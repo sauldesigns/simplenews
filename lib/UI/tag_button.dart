@@ -26,46 +26,24 @@ class TagButton extends StatelessWidget {
     NewsApi newsApi = Provider.of<NewsApi>(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
-      child: InkWell(
-        hoverColor: Colors.transparent,
-        focusColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: active == false ? this.tagColor : this.activeTagColor,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
-                  color: Colors.grey,
-                )
-              ]),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Row(
-              children: [
-                Text(
-                  '#' + title,
-                  style: TextStyle(
-                      color: active == false ? Colors.black : Colors.white),
-                ),
-                Expanded(child: Container()),
-                active == false
-                    ? Container()
-                    : newsApi.isFetching == true
-                        ? SpinKitChasingDots(
-                            color: Colors.white,
-                            size: 15,
-                          )
-                        : Container()
-              ],
+      child: FlatButton(
+        onPressed: onTap,
+        color: active == false ? tagColor : activeTagColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: ListTile(
+            title: Text(
+              '#' + title,
+              style: TextStyle(
+                  color: active == false ? Colors.black : Colors.white),
             ),
-          ),
-        ),
+            trailing: active == false
+                ? Container()
+                : newsApi.isFetching == true
+                    ? SpinKitChasingDots(
+                        color: Colors.white,
+                        size: 15,
+                      )
+                    : Container()),
       ),
     );
   }
