@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -25,25 +26,34 @@ class TagButton extends StatelessWidget {
   Widget build(BuildContext context) {
     NewsApi newsApi = Provider.of<NewsApi>(context);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
-      child: FlatButton(
+      padding: const EdgeInsets.only(bottom: 5),
+      child: RaisedButton(
         onPressed: onTap,
         color: active == false ? tagColor : activeTagColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: ListTile(
-            title: Text(
+        child: Row(
+          children: <Widget>[
+            AutoSizeText(
               '#' + title,
               style: TextStyle(
                   color: active == false ? Colors.black : Colors.white),
             ),
-            trailing: active == false
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Container(),
+            ),
+            active == false
                 ? Container()
                 : newsApi.isFetching == true
                     ? SpinKitChasingDots(
                         color: Colors.white,
                         size: 15,
                       )
-                    : Container()),
+                    : Container()
+          ],
+        ),
       ),
     );
   }

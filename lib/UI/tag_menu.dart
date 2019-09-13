@@ -116,7 +116,7 @@ class _TagMenuState extends State<TagMenu> {
     return Container(
       
       child: ListView.builder(
-        padding: EdgeInsets.only(top: 20, left: 5),
+        padding: EdgeInsets.only(top: 20, left: 5, right: 45),
         shrinkWrap: true,
         physics: ScrollPhysics(),
         itemCount: widget.listTags == null ? 1 : widget.listTags.length + 1,
