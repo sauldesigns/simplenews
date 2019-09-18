@@ -12,6 +12,7 @@ class TagButton extends StatelessWidget {
   final Color tagColor;
   final String title;
   final VoidCallback onTap;
+  final VoidCallback onLongPress;
   TagButton(
       {Key key,
       this.title,
@@ -19,6 +20,7 @@ class TagButton extends StatelessWidget {
       this.tag,
       this.tagColor = Colors.white,
       this.onTap,
+      this.onLongPress,
       this.activeTagColor = Colors.green})
       : super(key: key);
 
@@ -26,33 +28,45 @@ class TagButton extends StatelessWidget {
   Widget build(BuildContext context) {
     NewsApi newsApi = Provider.of<NewsApi>(context);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 5),
-      child: RaisedButton(
-        onPressed: onTap,
-        color: active == false ? tagColor : activeTagColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Row(
-          children: <Widget>[
-            AutoSizeText(
-              '#' + title,
-              style: TextStyle(
-                  color: active == false ? Colors.black : Colors.white),
+      padding: const EdgeInsets.only(bottom: 15),
+      child: Container(
+        height: 35,
+        decoration: BoxDecoration(
+            color: active == false ? tagColor : activeTagColor,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey, offset: Offset(0, 1), blurRadius: 2),
+            ]),
+        child: InkWell(
+          onTap: onTap,
+          onLongPress: onLongPress,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+            child: Row(
+              children: <Widget>[
+                AutoSizeText(
+                  '#' + title,
+                  style: TextStyle(
+                      color: active == false ? Colors.black : Colors.white),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Container(),
+                ),
+                active == false
+                    ? Container()
+                    : newsApi.isFetching == true
+                        ? SpinKitChasingDots(
+                            color: Colors.white,
+                            size: 15,
+                          )
+                        : Container()
+              ],
             ),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Container(),
-            ),
-            active == false
-                ? Container()
-                : newsApi.isFetching == true
-                    ? SpinKitChasingDots(
-                        color: Colors.white,
-                        size: 15,
-                      )
-                    : Container()
-          ],
+          ),
         ),
       ),
     );

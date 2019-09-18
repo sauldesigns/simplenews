@@ -32,6 +32,15 @@ class DatabaseService {
         (list) => list.documents.map((doc) => Tag.fromFirestore(doc)).toList());
   }
 
+  void deleteTag(String uid, String tagId) {
+    _db
+        .collection('users')
+        .document(uid)
+        .collection('tags')
+        .document(tagId)
+        .delete();
+  }
+
   Stream<List<News>> streamBookmarks(String uid) {
     var ref = _db
         .collection('users')
