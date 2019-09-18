@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_news/UI/article_card.dart';
+import 'package:simple_news/UI/splashscreen.dart';
 import 'package:simple_news/models/news.dart';
 
 class BookmarksPage extends StatefulWidget {
@@ -57,8 +58,9 @@ class _BookmarksPageState extends State<BookmarksPage> {
               article: _newsList[currentIdx],
               ctrl: ctrl,
             );
+          } else {
+            return SplashScreen();
           }
-          return Container();
         },
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_news/UI/article_card.dart';
+import 'package:simple_news/UI/splashscreen.dart';
 import 'package:simple_news/UI/tag_menu.dart';
 import 'package:simple_news/models/news.dart';
 import 'package:simple_news/models/tags.dart';
@@ -27,7 +28,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    ctrl = PageController(viewportFraction: widget.useMobile == true ? 0.8 : 0.5);
+    ctrl =
+        PageController(viewportFraction: widget.useMobile == true ? 0.8 : 0.5);
     // Set state when page changes
     ctrl.addListener(() {
       int next = ctrl.page.round();
@@ -62,7 +64,6 @@ class _HomePageState extends State<HomePage> {
     User user = Provider.of<User>(context);
     List<News> _newsList = newsApi.getArticles();
 
-
     return Scaffold(
       body: PageView.builder(
         controller: ctrl,
@@ -83,8 +84,9 @@ class _HomePageState extends State<HomePage> {
               article: _newsList[currentIdx - 1],
               ctrl: ctrl,
             );
+          } else {
+            return SplashScreen();
           }
-          return Container();
         },
       ),
     );

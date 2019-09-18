@@ -53,7 +53,8 @@ class _RootPageState extends State<RootPage> {
             child: HomePage(useMobile: useMobileLayout),
           ),
         );
+      default:
+        return SplashScreen();
     }
-    return Container();
   }
 }
