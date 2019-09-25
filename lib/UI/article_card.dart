@@ -71,7 +71,7 @@ class _ArticleCardState extends State<ArticleCard> {
         },
         onDoubleTap: () {
           widget.ctrl.animateToPage(0,
-              duration: Duration(milliseconds: 3000),
+              duration: Duration(milliseconds: 2500),
               curve: Curves.easeOutQuint);
         },
         child: AnimatedContainer(

@@ -112,11 +112,10 @@ class _TagMenuState extends State<TagMenu> {
     );
   }
 
-  Widget _buildTags(NewsApi newsApi) {
+  Widget _buildTags(NewsApi newsApi, BuildContext context, String userId) {
     return Container(
-      
       child: ListView.builder(
-        padding: EdgeInsets.only(top: 20, left: 5, right: 45),
+        padding: EdgeInsets.only(top: 20, left: 1, right: 80),
         shrinkWrap: true,
         physics: ScrollPhysics(),
         itemCount: widget.listTags == null ? 1 : widget.listTags.length + 1,
@@ -150,10 +149,38 @@ class _TagMenuState extends State<TagMenu> {
             return TagButton(
                 active: active,
                 title: tag.title,
+                onLongPress: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Delete Tag'),
+                          content:
+                              Text('Are you sure you want to delete this tag?'),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('Yes'),
+                              onPressed: () {
+                                _db.deleteTag(userId, tag.id);
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text('No'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            )
+                          ],
+                        );
+                      });
+                },
                 activeTagColor: Colors.blue,
                 onTap: () {
                   newsApi.fetchData(
-                      query: 'everything?q=' + tag.tag + '&language=en&sortBy=relevancy&pageSize=100');
+                      query: 'everything?q=' +
+                          tag.tag +
+                          '&language=en&sortBy=relevancy&pageSize=100');
                   newsApi.setTagIndex(index);
                   setState(() {
                     currentTagIndex = newsApi.tagIndex;
@@ -212,7 +239,7 @@ class _TagMenuState extends State<TagMenu> {
               ],
             ),
           ),
-          _buildTags(newsApi),
+          _buildTags(newsApi, context, user.uid),
           // Expanded(
           //   child: Container(
           //     width: 200.0,
