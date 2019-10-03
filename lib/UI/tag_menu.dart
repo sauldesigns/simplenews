@@ -239,8 +239,7 @@ class _TagMenuState extends State<TagMenu> {
               ],
             ),
           ),
-          _buildTags(newsApi, context, user.uid),
-          // Expanded(
+          _buildTags(newsApi, context, user.uid), // Expanded(
           //   child: Container(
           //     width: 200.0,
           //   ),
