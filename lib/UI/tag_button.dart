@@ -41,6 +41,8 @@ class TagButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           onLongPress: onLongPress,
+          customBorder:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Padding(
             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: Row(

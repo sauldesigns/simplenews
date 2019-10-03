@@ -178,8 +178,7 @@ class FirestoreSlideshowState extends State<FirestoreSlideshow> {
                   duration: Duration(milliseconds: 3000),
                   curve: Curves.easeOutQuint);
             },
-            child: AnimatedContainer(
-                duration: Duration(milliseconds: 1000),
+            child: Container(
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(000, 000, 000, 0.65),
                   borderRadius: BorderRadius.circular(20.0),

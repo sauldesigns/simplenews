@@ -65,29 +65,31 @@ class _HomePageState extends State<HomePage> {
     List<News> _newsList = newsApi.getArticles();
 
     return Scaffold(
-      body: PageView.builder(
-        controller: ctrl,
-        itemCount: _newsList == null ? 1 : _newsList.length + 1,
-        itemBuilder: (context, int currentIdx) {
-          if (currentIdx == 0) {
-            return StreamProvider<User>.value(
-              value: _db.streamUser(user.uid),
-              initialData: user,
-              child: TagMenu(
-                listTags: tagsList,
-              ),
-            );
-          } else if (_newsList.length >= currentIdx) {
-            bool active = currentIdx == currentPage;
-            return ArticleCard(
-              active: active,
-              article: _newsList[currentIdx - 1],
-              ctrl: ctrl,
-            );
-          } else {
-            return SplashScreen();
-          }
-        },
+      body: SafeArea(
+        child: PageView.builder(
+          controller: ctrl,
+          itemCount: _newsList == null ? 1 : _newsList.length + 1,
+          itemBuilder: (context, int currentIdx) {
+            if (currentIdx == 0) {
+              return StreamProvider<User>.value(
+                value: _db.streamUser(user.uid),
+                initialData: user,
+                child: TagMenu(
+                  listTags: tagsList,
+                ),
+              );
+            } else if (_newsList.length >= currentIdx) {
+              bool active = currentIdx == currentPage;
+              return ArticleCard(
+                active: active,
+                article: _newsList[currentIdx - 1],
+                ctrl: ctrl,
+              );
+            } else {
+              return SplashScreen();
+            }
+          },
+        ),
       ),
     );
   }

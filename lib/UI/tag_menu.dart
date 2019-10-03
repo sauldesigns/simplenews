@@ -115,7 +115,7 @@ class _TagMenuState extends State<TagMenu> {
   Widget _buildTags(NewsApi newsApi, BuildContext context, String userId) {
     return Container(
       child: ListView.builder(
-        padding: EdgeInsets.only(top: 20, left: 1, right: 80),
+        padding: EdgeInsets.only(top: 20, left: 3, right: 80),
         shrinkWrap: true,
         physics: ScrollPhysics(),
         itemCount: widget.listTags == null ? 1 : widget.listTags.length + 1,
@@ -192,6 +192,18 @@ class _TagMenuState extends State<TagMenu> {
     );
   }
 
+  Widget _avatar(User user, double radius) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 20, left: 0),
+      child: CircleAvatar(
+        backgroundImage: user.profilePic == null
+            ? AssetImage('assets/placeholder.png')
+            : NetworkImage(user.profilePic),
+        radius: radius,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     UserRepository userRepo = Provider.of<UserRepository>(context);
@@ -200,12 +212,13 @@ class _TagMenuState extends State<TagMenu> {
     User user = Provider.of<User>(context);
     currentTagIndex = newsApi.tagIndex;
     return SingleChildScrollView(
-      padding: EdgeInsets.only(top: 100, bottom: 20),
+      padding: EdgeInsets.only(top: 20, bottom: 20),
       physics: AlwaysScrollableScrollPhysics(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          _avatar(user, 40),
           _title('${user.username}\'s\nNews'),
           SizedBox(
             height: 10.0,
